@@ -1,18 +1,18 @@
-name: pollinations-api
-region: us-east-1
-yamlVersion: 2
 backend:
-    path: .
+    functions:
+        - entry: index.mjs
+          name: fastify
+          path: .
+          type: httpServer
     language:
         name: js
-    functions:
-        - name: fastify
-          path: .
-          entry: index.mjs
-          type: httpServer
+    path: .
     scripts:
         deploy:
             - npm install
             - npm start
         local:
             - npm install
+name: pollinations-api
+region: us-east-1
+yamlVersion: 2
