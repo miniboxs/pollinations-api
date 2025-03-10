@@ -5,7 +5,7 @@ backend:
     path: .
     language:
         name: js
-    packageManager: pnpm
+    packageManager: npm
     functions:
         - name: fastify
           path: ./src
@@ -13,7 +13,7 @@ backend:
           type: httpServer
     scripts:
         deploy:
-            - pnpm install
-            - pnpm start
+            - npm install
+            - npm start
         local:
             - npm install

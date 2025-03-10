@@ -9,7 +9,7 @@ const server = Fastify({
 server.register(routes, { prefix: '/v1' })
 
 // 监听
-server.listen({ port: 8080 }, function (err, address) {
+server.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
     if (err) {
         fastify.log.error(err)
         process.exit(1)
