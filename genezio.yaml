@@ -1,0 +1,19 @@
+name: pollinations-api
+region: us-east-1
+yamlVersion: 2
+backend:
+    path: .
+    language:
+        name: js
+    packageManager: pnpm
+    functions:
+        - name: fastify
+          path: ./src
+          entry: index.mjs
+          type: httpServer
+    scripts:
+        deploy:
+            - pnpm install
+            - pnpm start
+        local:
+            - npm install
