@@ -1,0 +1,14 @@
+{
+    "schemaVersion": 2,
+    "dockerfileLines": [
+        "FROM node:20-alpine",
+        "WORKDIR /usr/src/hnet",
+        "COPY package*.json ./",
+        "RUN npm install -g pnpm",
+        "RUN pnpm install",
+        "COPY . .",
+        "RUN pnpm install",
+        "EXPOSE 56559",
+        "CMD [ \"pnpm\", \"start\" ]"
+    ]
+}
