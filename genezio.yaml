@@ -1,0 +1,19 @@
+backend:
+    functions:
+        - entry: index.mjs
+          handler: handler
+          name: fastify
+          path: .
+          type: httpServer
+    language:
+        name: js
+        runtime: nodejs20.x
+    path: ./src/
+    scripts:
+        deploy:
+            - npm install
+        local:
+            - npm install
+name: pollinations-api
+region: eu-central-1
+yamlVersion: 2
