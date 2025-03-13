@@ -8,7 +8,7 @@ const server = Fastify({
     logger: true,
 });
 
-const whiteList = ['/v1/models','/v1/test']
+const whiteList = ['/v1/models', '/v1/test']
 
 server.addHook('preHandler', (request, reply, done) => {
 
@@ -37,6 +37,8 @@ server.addHook('preHandler', (request, reply, done) => {
         });
         return;
     }
+    
+    console.log(token, 'tokentokentoken');
 
     if (token !== env.OPENAI_API_KEY) {
         reply.code(401).send({
