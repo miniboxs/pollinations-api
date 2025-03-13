@@ -2,7 +2,7 @@ import Fastify from "fastify";
 import routes from "./routes/index.mjs";
 import dotenv from 'dotenv';
 
-const env = dotenv.config().parsed;
+dotenv.config();
 
 const server = Fastify({
     logger: true,
@@ -39,9 +39,9 @@ server.addHook('preHandler', (request, reply, done) => {
     }
 
     console.log(token, 'tokentokentoken');
-    console.log(env.OPENAI_API_KEY, 'env.OPENAI_API_KEY');
-    
-    if (token != env.OPENAI_API_KEY) {
+    console.log(process.env.OPENAI_API_KEY, 'env.OPENAI_API_KEY');
+
+    if (token != process.env.OPENAI_API_KEY) {
         reply.code(401).send({
             error: 'Unauthorized',
             message: 'Invalid token'
@@ -63,7 +63,7 @@ server.addHook('preHandler', (request, reply, done) => {
 server.register(routes, { prefix: '/v1' })
 
 // 监听
-server.listen({ port: env.PORT || 56553, host: '0.0.0.0' }, function (err, address) {
+server.listen({ port: process.env.PORT || 56553, host: '0.0.0.0' }, function (err, address) {
     if (err) {
         server.log.error(err)
         process.exit(1)
