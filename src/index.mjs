@@ -8,6 +8,54 @@ const server = Fastify({
     logger: true,
 });
 
+const whiteList = ['/v1/models','/v1/test']
+
+server.addHook('preHandler', (request, reply, done) => {
+
+    const headers = request.headers;
+    const path = request.url;
+
+    if (whiteList.includes(path)) {
+        done();
+        return;
+    }
+
+    const authHeader = headers['authorization'];
+    if (!authHeader) {
+        reply.code(401).send({
+            error: 'Unauthorized',
+            message: 'Missing Authorization header'
+        });
+        return;
+    }
+
+    const [, token] = authHeader.split(' ');
+    if (!token) {
+        reply.code(401).send({
+            error: 'Unauthorized',
+            message: 'Invalid token format'
+        });
+        return;
+    }
+
+    if (token !== env.OPENAI_API_KEY) {
+        reply.code(401).send({
+            error: 'Unauthorized',
+            message: 'Invalid token'
+        });
+        return;
+    }
+
+    // if (!headers['user-agent']) {
+    //     reply.code(400).send({
+    //         error: 'Bad Request',
+    //         message: 'User-Agent header is required'
+    //     });
+    //     return;
+    // }
+
+    done();
+});
 
 server.register(routes, { prefix: '/v1' })
 

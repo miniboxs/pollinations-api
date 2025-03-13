@@ -54,15 +54,21 @@ async function routes(fastify, options) {
 
     fastify.post('/chat/completions', async (request, reply) => {
         try {
-            console.log(request);
+
+            const models = {
+                "gpt-4o-mini": "openai",
+                "gpt-4o": "openai-large",
+            }
 
             const requestBody = await request.body;
+
+            let model = models[requestBody.model] ?? requestBody.model;
 
             const pollinationsResponse = await fetch(`${API_ENDPOINT}/openai`, {
                 method: "POST",
                 headers,
                 body: JSON.stringify({
-                    model: requestBody.model || "gpt-4o-mini",
+                    model: model || "gpt-4o-mini",
                     messages: requestBody.messages,
                     temperature: requestBody.temperature || 0.7,
                     stream: requestBody.stream || false
