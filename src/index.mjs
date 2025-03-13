@@ -37,10 +37,11 @@ server.addHook('preHandler', (request, reply, done) => {
         });
         return;
     }
-    
-    console.log(token, 'tokentokentoken');
 
-    if (token !== env.OPENAI_API_KEY) {
+    console.log(token, 'tokentokentoken');
+    console.log(env.OPENAI_API_KEY, 'env.OPENAI_API_KEY');
+    
+    if (token != env.OPENAI_API_KEY) {
         reply.code(401).send({
             error: 'Unauthorized',
             message: 'Invalid token'
