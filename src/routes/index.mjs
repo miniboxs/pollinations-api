@@ -69,9 +69,7 @@ async function routes(fastify, options) {
                 headers,
                 body: JSON.stringify({
                     model: model || "gpt-4o-mini",
-                    messages: requestBody.messages,
-                    temperature: requestBody.temperature || 0.7,
-                    stream: requestBody.stream || false
+                    ...requestBody
                 })
             });
 
